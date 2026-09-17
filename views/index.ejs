@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cocktail Recipe Finder</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <header>
+    <h1>🍹 Cocktails </h1>
+    <p>We have lots of delecious Cocktails</p>
+  </header>
+
+  <main class="container">
+ 
+    <form action="/random-cocktail" method="GET">
+      <button type="submit">Get Cocktails</button>
+    </form>
+ 
+    <% if (error) { %>
+      <div class="error">
+        <%= error %>
+      </div>
+    <% } %>
+ 
+    <% if (cocktail) { %>
+
+      <section class="recipe">
+        <h2><%= cocktail.strDrink %></h2>
+
+        <img
+          src="<%= cocktail.strDrinkThumb %>"
+          alt="<%= cocktail.strDrink %>"
+        >
+
+        <p>
+          <strong>Category:</strong>
+          <%= cocktail.strCategory || "Not available" %>
+        </p>
+
+        <p>
+          <strong>Type:</strong>
+          <%= cocktail.strAlcoholic || "Not available" %>
+        </p>
+
+        <p>
+          <strong>Glass:</strong>
+          <%= cocktail.strGlass || "Not available" %>
+        </p>
+
+        <h3>Ingredients</h3>
+        <ul>
+          <% for (let i = 1; i <= 15; i++) { %>
+            <% const ingredient = cocktail["strIngredient" + i]; %>
+            <% const measure = cocktail["strMeasure" + i]; %>
+
+            <% if (ingredient && ingredient.trim()) { %>
+              <li>
+                <%= measure ? measure.trim() : "" %>
+                <%= ingredient.trim() %>
+              </li>
+            <% } %>
+          <% } %>
+        </ul>
+
+        <h3>Instructions</h3>
+        <p class="instructions">
+          <%= cocktail.strInstructions || "No instructions available." %>
+        </p>
+      </section>
+
+    <% } else if (!error) { %>
+
+      <p class="welcome">
+        Click the button to choose cocktails.
+      </p>
+
+    <% } %>
+
+  </main>
+
+  <footer>
+    <p>Powered by TheCocktailDB API</p>
+  </footer>
+
+</body>
+</html>
