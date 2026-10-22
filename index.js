@@ -1,4 +1,3 @@
-
 import express from "express"; //its make our web server
 import axios from "axios"; //http or api
 
@@ -24,7 +23,7 @@ app.get("/random-cocktail", async (req, res) => {
     );
 
     
-    const cocktail = response.data.drinks?.[0];
+     const cocktail = response.data.drinks?.[0];  //The ? is optional chaining which is safely trying to access [0] before drinks .
 
      if (!cocktail) {
       throw new Error("No cocktail was found.");
